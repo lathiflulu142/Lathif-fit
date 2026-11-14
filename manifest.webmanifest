@@ -1,0 +1,10 @@
+{
+  "name": "LALU FIT - Personal Fitness Tracker",
+  "short_name": "LALU FIT",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a100d",
+  "theme_color": "#101713",
+  "description": "Personal workout, nutrition, timer and progress tracker."
+}

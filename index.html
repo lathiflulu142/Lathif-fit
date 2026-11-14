@@ -1,172 +1,203 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101713">
-<title>LALU FIT | 12-Week Tracker</title>
+<meta name="description" content="LALU FIT personal workout, nutrition and progress tracker.">
+<link rel="manifest" href="./manifest.webmanifest">
+<title>LALU FIT | Personal Fitness</title>
 <style>
-:root{--bg:#0b100e;--panel:#131c17;--panel2:#19251e;--line:#29372e;--text:#f2f7f2;--muted:#9aaba0;--green:#9be15d;--green2:#53c878;--orange:#ffbd69;--red:#ff7777}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 90% 0%,#1b3022 0,transparent 32%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-.wrap{max-width:1050px;margin:auto;padding:20px 16px 50px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 22px}.brand{font-weight:900;letter-spacing:1.8px;font-size:15px}.brand span{color:var(--green)}.date{font-size:12px;color:var(--muted)}
-.hero{background:linear-gradient(135deg,#1e3526,#142019 65%,#1b2b20);border:1px solid #38533e;border-radius:24px;padding:24px;position:relative;overflow:hidden}.eyebrow{color:var(--green);font-size:11px;font-weight:800;letter-spacing:2px}.hero h1{font-size:clamp(29px,7vw,48px);line-height:1.04;margin:10px 0}.hero p{color:#c0cec3;max-width:600px;margin:0 0 18px;font-size:14px;line-height:1.55}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.stat{background:#0d1711a8;border:1px solid #405646;border-radius:14px;padding:12px}.stat b{display:block;font-size:21px}.stat small{color:#b3c2b6;font-size:10px;text-transform:uppercase;letter-spacing:1px}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;margin-top:15px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0}.span8{grid-column:span 8}.span7{grid-column:span 7}.span6{grid-column:span 6}.span5{grid-column:span 5}.span4{grid-column:span 4}.full{grid-column:1/-1}
-.card h2{font-size:16px;margin:0 0 5px}.sub{font-size:12px;color:var(--muted);margin:0 0 15px}.progressline{height:9px;background:#26342b;border-radius:99px;overflow:hidden;margin:12px 0 7px}.progressline i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:99px;transition:width .2s}.row{display:flex;align-items:center;justify-content:space-between;gap:10px}.pill{font-size:11px;color:var(--green);background:#253b2a;padding:6px 9px;border-radius:99px;font-weight:700}
-.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}.day{border:1px solid var(--line);border-radius:11px;padding:9px 3px;text-align:center;background:#101813;color:var(--muted);font-size:10px}.day b{display:block;font-size:13px;color:var(--text);margin-bottom:4px}.day.active{border-color:var(--green);background:#263c29}.day.done{background:#203927;border-color:#4b8050}.day button{all:unset;cursor:pointer;display:block;width:100%}
-.checks{display:grid;gap:9px}.check{display:flex;align-items:center;gap:10px;background:#101813;border:1px solid #243329;padding:11px;border-radius:12px;font-size:13px}.check input{accent-color:var(--green);width:18px;height:18px;flex:none}.check small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
-input,select,textarea{width:100%;background:#0c140f;border:1px solid var(--line);border-radius:10px;padding:11px;color:var(--text);font:inherit;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--green)}label{display:block;font-size:11px;color:var(--muted);margin:0 0 6px}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.field{min-width:0}
-.btn{border:0;border-radius:11px;padding:11px 14px;background:var(--green);color:#102014;font-weight:800;font-size:12px;cursor:pointer}.btn.secondary{background:#25342a;color:var(--text);border:1px solid #3b4d40}.btn.danger{background:#3a2020;color:#ffb2b2;border:1px solid #663737}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-.macro{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.macro .stat{background:#101813;border-color:var(--line)}.macro input{margin-top:8px;padding:8px}
-.exercise{padding:10px 0;border-bottom:1px solid var(--line);font-size:12px}.exercise:last-child{border:0}.exercise b{display:block;font-size:13px;margin-bottom:3px}.exercise span{color:var(--muted)}
-.log{width:100%;border-collapse:collapse;font-size:12px}.log th,.log td{text-align:left;padding:9px 6px;border-bottom:1px solid var(--line)}.log th{color:var(--muted);font-weight:600}.empty{color:var(--muted);font-size:12px;padding:12px 0}
-footer{text-align:center;color:#728278;font-size:11px;margin:22px 0 0;line-height:1.6}
-.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#d9f7c8;color:#102014;padding:10px 16px;border-radius:99px;font-size:12px;font-weight:800;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1}
-@media(max-width:700px){.span8,.span7,.span6,.span5,.span4{grid-column:1/-1}.wrap{padding:14px 12px 35px}.hero{padding:19px}.stat b{font-size:18px}.fields{grid-template-columns:1fr 1fr}}
+:root{--bg:#0a100d;--panel:#121c16;--panel2:#19251d;--line:#2a3a2f;--text:#f1f7f1;--muted:#9aaca0;--green:#a4e66b;--green2:#55c879;--orange:#ffc477;--red:#ff7777;--blue:#83c8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% -10%,#25452d 0,transparent 36%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+.app{max-width:1100px;margin:auto;padding:16px 15px 100px}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 18px}.brand{font-size:15px;font-weight:950;letter-spacing:2px}.brand span{color:var(--green)}.topright{display:flex;align-items:center;gap:8px}.date{font-size:11px;color:var(--muted)}.iconbtn{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:12px;padding:9px 11px}
+.hero{padding:22px;border:1px solid #3b5941;border-radius:24px;background:linear-gradient(135deg,#1d3725,#142019 70%,#1d3022);position:relative;overflow:hidden}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:900;color:var(--green)}h1{font-size:clamp(28px,7vw,46px);line-height:1.02;margin:10px 0}.hero p{max-width:610px;color:#c2d0c4;font-size:13px;line-height:1.5;margin:0 0 16px}.heroStats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.miniStat{background:#0b1510a8;border:1px solid #405747;border-radius:13px;padding:11px}.miniStat b{display:block;font-size:19px}.miniStat small{font-size:9px;color:#b4c4b7;text-transform:uppercase;letter-spacing:1px}
+.page{display:none}.page.active{display:block}.sectionhead{display:flex;align-items:end;justify-content:space-between;gap:10px;margin:21px 1px 12px}.sectionhead h2{font-size:19px;margin:0}.muted{color:var(--muted);font-size:12px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:13px}.card{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:16px;min-width:0}.s8{grid-column:span 8}.s7{grid-column:span 7}.s6{grid-column:span 6}.s5{grid-column:span 5}.s4{grid-column:span 4}.full{grid-column:1/-1}.card h3{font-size:15px;margin:0 0 5px}.card p{font-size:12px;color:var(--muted);line-height:1.5;margin:4px 0 12px}.pill{display:inline-flex;align-items:center;gap:5px;padding:6px 9px;border-radius:99px;background:#253a29;color:var(--green);font-size:10px;font-weight:800}.progress{height:9px;border-radius:99px;background:#26352b;overflow:hidden;margin:10px 0}.progress i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green2),var(--green));border-radius:99px;transition:width .2s}.statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.statbox{background:#0d1711;border:1px solid var(--line);border-radius:13px;padding:11px}.statbox small{font-size:9px;color:var(--muted);display:block;text-transform:uppercase;letter-spacing:1px}.statbox b{font-size:20px;display:block;margin-top:3px}
+.checks{display:grid;gap:8px}.check{display:flex;align-items:center;gap:10px;background:#0e1711;border:1px solid #25352a;border-radius:12px;padding:10px;font-size:12px}.check input{accent-color:var(--green);width:18px;height:18px;flex:none}.check small{display:block;color:var(--muted);font-size:10px;margin-top:2px}
+.btn{border:0;border-radius:11px;padding:10px 13px;background:var(--green);color:#112015;font-size:12px;font-weight:850}.btn.secondary{background:#25352a;color:var(--text);border:1px solid #3a4d3f}.btn.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}.btn.danger{background:#3a2020;color:#ffb6b6;border:1px solid #643939}.btn:disabled{opacity:.4;cursor:not-allowed}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.field{min-width:0}.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px}.field input,.field select{width:100%;padding:11px;background:#0b140e;color:var(--text);border:1px solid var(--line);border-radius:10px;outline:none}.field input:focus,.field select:focus{border-color:var(--green)}.fields{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:20;background:#0c140feF;border-top:1px solid #2a3b30;backdrop-filter:blur(14px);padding:8px max(8px,env(safe-area-inset-right)) calc(8px + env(safe-area-inset-bottom));display:flex;justify-content:center;gap:4px}.nav button{border:0;background:transparent;color:#93a398;border-radius:12px;min-width:0;flex:1;max-width:150px;padding:7px 4px;font-size:9px;font-weight:750}.nav button .ni{font-size:18px;display:block;margin-bottom:2px}.nav button.active{background:#263b2b;color:var(--green)}
+.exerciseGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.exercise{background:#0e1711;border:1px solid var(--line);border-radius:15px;padding:12px;text-align:left;color:var(--text);min-width:0}.exercise.selected{border-color:var(--green);background:#1b2b1e}.exercise .emoji{font-size:23px}.exercise b{display:block;font-size:12px;margin:6px 0 3px}.exercise small{color:var(--muted);font-size:10px}.demo{height:205px;border:1px solid #35503a;border-radius:17px;background:radial-gradient(circle at 50% 45%,#29442e,#101b14 72%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}.demoTag{position:absolute;top:12px;left:12px;font-size:10px;color:var(--green);font-weight:800;letter-spacing:1px}.figure{position:relative;width:120px;height:155px;transform:scale(.92)}.head{position:absolute;width:25px;height:25px;border:4px solid var(--green);border-radius:50%;left:48px;top:7px}.torso{position:absolute;width:13px;height:58px;background:var(--green);border-radius:10px;left:54px;top:35px;transform-origin:top center}.arm{position:absolute;width:9px;height:53px;background:#c5ef9c;border-radius:10px;top:43px;left:52px;transform-origin:top center}.arm.left{transform:rotate(38deg)}.arm.right{transform:rotate(-38deg)}.leg{position:absolute;width:10px;height:58px;background:#c5ef9c;border-radius:10px;top:89px;left:54px;transform-origin:top center}.leg.left{transform:rotate(15deg)}.leg.right{transform:rotate(-15deg)}.demo.squat .torso{animation:squatBody 1.8s ease-in-out infinite}.demo.squat .leg.left{animation:squatLegL 1.8s ease-in-out infinite}.demo.squat .leg.right{animation:squatLegR 1.8s ease-in-out infinite}.demo.curl .arm.left{animation:curlL 1.5s ease-in-out infinite}.demo.curl .arm.right{animation:curlR 1.5s ease-in-out infinite}.demo.press .arm.left{animation:pressL 1.7s ease-in-out infinite}.demo.press .arm.right{animation:pressR 1.7s ease-in-out infinite}.demo.row .arm.left{animation:rowL 1.7s ease-in-out infinite}.demo.row .arm.right{animation:rowR 1.7s ease-in-out infinite}.demo.plank .torso{transform:rotate(75deg) translate(20px,18px)}.demo.plank .head{left:86px;top:42px}.demo.plank .arm.left{transform:rotate(75deg);top:80px;left:68px}.demo.plank .arm.right{transform:rotate(75deg);top:80px;left:68px}.demo.plank .leg.left{transform:rotate(90deg);top:88px;left:50px}.demo.plank .leg.right{transform:rotate(90deg);top:88px;left:50px}
+@keyframes squatBody{0%,100%{transform:rotate(0) translateY(0)}50%{transform:rotate(20deg) translateY(22px)}}@keyframes squatLegL{0%,100%{transform:rotate(15deg)}50%{transform:rotate(55deg)}}@keyframes squatLegR{0%,100%{transform:rotate(-15deg)}50%{transform:rotate(-55deg)}}@keyframes curlL{0%,100%{transform:rotate(38deg)}50%{transform:rotate(-75deg)}}@keyframes curlR{0%,100%{transform:rotate(-38deg)}50%{transform:rotate(75deg)}}@keyframes pressL{0%,100%{transform:rotate(38deg)}50%{transform:rotate(-145deg)}}@keyframes pressR{0%,100%{transform:rotate(-38deg)}50%{transform:rotate(145deg)}}@keyframes rowL{0%,100%{transform:rotate(38deg)}50%{transform:rotate(95deg)}}@keyframes rowR{0%,100%{transform:rotate(-38deg)}50%{transform:rotate(-95deg)}}
+.timerbox{text-align:center;padding:14px 8px}.time{font-size:clamp(48px,13vw,76px);font-weight:900;letter-spacing:-3px;font-variant-numeric:tabular-nums}.timerstate{color:var(--green);font-size:11px;font-weight:850;letter-spacing:2px}.ring{width:190px;height:190px;border-radius:50%;border:8px solid #2b3b30;margin:10px auto;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 30px #0b100d}.ring.work{border-color:var(--green2)}.ring.rest{border-color:var(--orange)}.timercontrols{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.presets{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:12px 0}.preset{background:#17231b;color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:10px}.preset.active{color:var(--green);border-color:var(--green)}
+.history{width:100%;border-collapse:collapse;font-size:11px}.history th,.history td{text-align:left;padding:9px 5px;border-bottom:1px solid var(--line)}.history th{color:var(--muted)}.bars{display:flex;align-items:end;gap:7px;height:125px;padding:8px 2px}.barcol{flex:1;display:flex;flex-direction:column;justify-content:end;align-items:center;height:100%;gap:5px}.bar{width:100%;max-width:32px;border-radius:7px 7px 2px 2px;background:linear-gradient(0deg,var(--green2),var(--green));min-height:3px}.barcol small{font-size:9px;color:var(--muted)}
+.weekgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}.week{background:#0e1711;border:1px solid var(--line);border-radius:11px;padding:9px 3px;text-align:center;color:var(--muted);font-size:10px}.week b{display:block;color:var(--text);font-size:13px;margin-bottom:4px}.week.done{border-color:#5c9b5e;background:#1b3020;color:var(--green)}
+.toast{position:fixed;top:14px;left:50%;transform:translate(-50%,-12px);opacity:0;transition:.2s;background:#dff7ce;color:#142316;padding:10px 15px;border-radius:99px;font-size:11px;font-weight:850;z-index:50;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}.offline{font-size:10px;color:var(--green)}.empty{color:var(--muted);font-size:12px;padding:10px 0}
+@media(min-width:760px){.app{padding-top:24px}.exerciseGrid{grid-template-columns:repeat(3,1fr)}.demo{height:250px}}
+@media(max-width:560px){.s8,.s7,.s6,.s5,.s4{grid-column:1/-1}.app{padding-left:12px;padding-right:12px}.hero{padding:19px}.weekgrid{grid-template-columns:repeat(4,1fr)}.statrow{gap:6px}.statbox{padding:9px}.statbox b{font-size:17px}}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="top"><div class="brand">LALU <span>FIT</span> / 12 WEEKS</div><div class="date" id="todayLabel"></div></header>
-  <section class="hero">
-    <div class="eyebrow">YOUR TRANSFORMATION STARTS HERE</div>
-    <h1>BUILD. TRACK.<br><span style="color:var(--green)">BECOME STRONGER.</span></h1>
-    <p>A simple daily log for your workouts, nutrition, sleep and measurements. Consistency beats perfection. Your entries save on this device.</p>
-    <div class="stats">
-      <div class="stat"><b>65 kg</b><small>Starting weight</small></div>
-      <div class="stat"><b>32 in</b><small>Starting waist</small></div>
-      <div class="stat"><b>105–120 g</b><small>Protein goal</small></div>
-    </div>
-  </section>
+<div class="app">
+<header class="top"><div class="brand">LALU <span>FIT</span> <span style="color:#819387;font-weight:600">/ 12 WEEKS</span></div><div class="topright"><span class="date" id="today"></span><button class="iconbtn" id="installBtn" hidden aria-label="Install app">＋ Install</button></div></header>
 
-  <div class="grid">
-    <section class="card span7">
-      <div class="row"><h2>Today's mission</h2><span class="pill" id="completionLabel">0% done</span></div>
-      <p class="sub">Tick each item as you complete it. Changes save automatically.</p>
-      <div class="progressline"><i id="dailyBar"></i></div>
-      <div class="checks" id="habitList">
-        <label class="check"><input type="checkbox" data-habit="run"><span><b>Morning movement</b><small>15-minute easy run or walk, 2–3 days/week</small></span></label>
-        <label class="check"><input type="checkbox" data-habit="breakfast"><span><b>Eat breakfast</b><small>Eggs / oats / milk / fruit</small></span></label>
-        <label class="check"><input type="checkbox" data-habit="lunch"><span><b>Eat a proper lunch</b><small>Rice, dal, protein food and vegetables</small></span></label>
-        <label class="check"><input type="checkbox" data-habit="protein"><span><b>Reach protein goal</b><small>Target: 105–120 g from food and/or whey</small></span></label>
-        <label class="check"><input type="checkbox" data-habit="workout"><span><b>Evening workout / recovery</b><small>Follow today's plan; recovery days count too</small></span></label>
-        <label class="check"><input type="checkbox" data-habit="water"><span><b>Drink water regularly</b><small>Drink to thirst; add more in heat and after sweating</small></span></label>
-        <label class="check"><input type="checkbox" data-habit="sleep"><span><b>Protect sleep</b><small>Plan for 8–9 hours</small></span></label>
-      </div>
-    </section>
+<section class="hero">
+ <div class="eyebrow">YOUR PERSONAL FITNESS SPACE</div>
+ <h1>BUILD STRONG.<br><span style="color:var(--green)">STAY CONSISTENT.</span></h1>
+ <p>Track workouts, learn exercises, use interval timers and record your progress. Your entries stay on this device.</p>
+ <div class="heroStats"><div class="miniStat"><b>65 kg</b><small>Starting weight</small></div><div class="miniStat"><b>32 in</b><small>Starting waist</small></div><div class="miniStat"><b>105–120 g</b><small>Protein guide</small></div></div>
+</section>
 
-    <section class="card span5">
-      <h2>Today's workout</h2><p class="sub">Suggested weekly home plan</p>
-      <div id="workoutToday"></div>
-      <p class="sub" style="margin:12px 0 0">Start with 2 sets in the first 2 weeks. Use controlled reps and stop if you feel sharp pain.</p>
-    </section>
+<main>
+<section class="page active" id="page-home">
+ <div class="sectionhead"><div><h2>Today's dashboard</h2><div class="muted" id="fullDate"></div></div><span class="pill" id="dayPercent">0% complete</span></div>
+ <div class="grid">
+  <article class="card s7"><h3>Daily habits</h3><p>Tick what you complete. Your progress saves automatically.</p><div class="progress"><i id="dailyProgress"></i></div>
+   <div class="checks" id="habits">
+    <label class="check"><input type="checkbox" data-h="morning"><span><b>Morning movement</b><small>Easy 15-minute run or walk, 2–3 days weekly</small></span></label>
+    <label class="check"><input type="checkbox" data-h="breakfast"><span><b>Breakfast</b><small>Eggs, oats, milk or fruit</small></span></label>
+    <label class="check"><input type="checkbox" data-h="lunch"><span><b>Balanced lunch</b><small>Rice, dal, chicken/eggs and vegetables</small></span></label>
+    <label class="check"><input type="checkbox" data-h="protein"><span><b>Protein goal</b><small>Work towards 105–120 g from food and whey if needed</small></span></label>
+    <label class="check"><input type="checkbox" data-h="training"><span><b>Workout or recovery</b><small>Today's session or planned rest</small></span></label>
+    <label class="check"><input type="checkbox" data-h="water"><span><b>Hydration</b><small>Drink regularly, especially in hot weather</small></span></label>
+    <label class="check"><input type="checkbox" data-h="sleep"><span><b>Sleep plan</b><small>Allow 8–9 hours each night</small></span></label>
+   </div>
+  </article>
+  <article class="card s5"><h3>Today's training</h3><p id="todayPlanSub">Your suggested session</p><div id="todayPlan"></div><div class="btnrow"><button class="btn" data-go="workouts">Open exercises →</button></div></article>
+  <article class="card s4"><h3>Protein today</h3><div class="statrow"><div class="statbox"><small>Logged</small><b id="homeProtein">0 g</b></div><div class="statbox"><small>Goal</small><b>120 g</b></div><div class="statbox"><small>Left</small><b id="proteinLeft">120 g</b></div></div><div class="progress"><i id="proteinProgress"></i></div><div class="field"><label for="proteinQuick">Update protein (grams)</label><input id="proteinQuick" type="number" min="0" max="300" placeholder="e.g. 95"></div><div class="btnrow"><button class="btn secondary" id="saveProtein">Save</button></div></article>
+  <article class="card s4"><h3>Sleep & water</h3><div class="fields"><div class="field"><label for="sleepQuick">Sleep (hours)</label><input id="sleepQuick" type="number" min="0" max="24" step=".5" placeholder="8"></div><div class="field"><label for="waterQuick">Water (litres)</label><input id="waterQuick" type="number" min="0" max="10" step=".1" placeholder="2"></div></div><div class="btnrow"><button class="btn secondary" id="saveRecovery">Save</button></div><p id="recoveryNote">Aim for 8–9 hours of sleep.</p></article>
+  <article class="card s4"><h3>Quick timer</h3><p>Start a 45-second work interval.</p><div class="statrow"><div class="statbox"><small>Timer</small><b id="quickTime">00:45</b></div><div class="statbox"><small>Mode</small><b id="quickMode">Ready</b></div></div><div class="btnrow"><button class="btn" id="quickStart">Start</button><button class="btn secondary" id="quickReset">Reset</button></div></article>
+ </div>
+</section>
 
-    <section class="card span6">
-      <h2>Nutrition check-in</h2><p class="sub">Enter today's totals. Protein includes all food and supplements.</p>
-      <div class="macro">
-        <div class="stat"><small>Protein (g)</small><input id="proteinInput" type="number" min="0" max="300" placeholder="0"></div>
-        <div class="stat"><small>Water (L)</small><input id="waterInput" type="number" min="0" max="10" step=".1" placeholder="0"></div>
-        <div class="stat"><small>Sleep (hrs)</small><input id="sleepInput" type="number" min="0" max="24" step=".5" placeholder="0"></div>
-      </div>
-      <div class="btnrow"><button class="btn" id="saveNutrition">Save today's numbers</button></div>
-      <p class="sub" style="margin:10px 0 0">Targets are guides, not pass/fail scores. Don't force excessive water or sacrifice sleep to hit a number.</p>
-    </section>
+<section class="page" id="page-workouts">
+ <div class="sectionhead"><div><h2>Exercise library</h2><div class="muted">Choose an exercise to see its name, muscles and animated movement guide.</div></div></div>
+ <div class="grid">
+  <article class="card s5"><h3>Choose exercise</h3><p>Tube-band and bodyweight exercises.</p><div class="exerciseGrid" id="exerciseList"></div></article>
+  <article class="card s7"><div class="row"><div><h3 id="exerciseName">Band chest press</h3><p id="exerciseMeta">Chest · Push</p></div><span class="pill" id="exerciseLevel">Beginner</span></div>
+   <div class="demo press" id="demo"><span class="demoTag">MOVEMENT PREVIEW</span><div class="figure"><div class="head"></div><div class="torso"></div><div class="arm left"></div><div class="arm right"></div><div class="leg left"></div><div class="leg right"></div></div></div>
+   <h3 style="margin-top:13px">How to do it</h3><p id="exerciseHow">Anchor the band behind you. Press forward with control and return slowly.</p>
+   <div class="statrow"><div class="statbox"><small>Sets</small><b id="exerciseSets">2–3</b></div><div class="statbox"><small>Reps</small><b id="exerciseReps">10–15</b></div><div class="statbox"><small>Rest</small><b id="exerciseRest">60–90s</b></div></div>
+   <div class="btnrow"><button class="btn" id="startExerciseTimer">Start exercise timer</button><button class="btn secondary" data-go="timer">Open timer page</button></div>
+  </article>
+ </div>
+ <div class="sectionhead"><div><h2>Weekly split</h2><div class="muted">Use comfortable resistance. First two weeks: start with 2 sets.</div></div></div>
+ <div class="grid" id="splitCards"></div>
+</section>
 
-    <section class="card span6">
-      <h2>Body measurements</h2><p class="sub">Log once a week, under similar conditions (e.g. morning).</p>
-      <div class="fields">
-        <div class="field"><label for="weightInput">Weight (kg)</label><input id="weightInput" type="number" min="20" max="300" step=".1" placeholder="e.g. 65"></div>
-        <div class="field"><label for="waistInput">Waist at navel (in)</label><input id="waistInput" type="number" min="15" max="80" step=".1" placeholder="e.g. 32"></div>
-      </div>
-      <div class="btnrow"><button class="btn" id="saveMeasure">Save measurement</button></div>
-      <div id="latestMeasure" class="empty">No measurements saved yet.</div>
-    </section>
+<section class="page" id="page-timer">
+ <div class="sectionhead"><div><h2>Workout timer</h2><div class="muted">Work intervals, rest periods and exercise rounds.</div></div><span class="pill" id="timerStatus">READY</span></div>
+ <div class="grid">
+  <article class="card s6"><div class="timerbox"><div class="timerstate" id="timerMode">WORK</div><div class="ring work" id="timerRing"><div class="time" id="timerDisplay">00:45</div></div><div class="muted" id="roundLabel">Round 1 of 3</div>
+   <div class="presets"><button class="preset active" data-work="45" data-rest="60">45 / 60s</button><button class="preset" data-work="30" data-rest="30">30 / 30s</button><button class="preset" data-work="60" data-rest="90">60 / 90s</button></div>
+   <div class="timercontrols"><button class="btn" id="timerStart">Start</button><button class="btn secondary" id="timerPause">Pause</button><button class="btn ghost" id="timerReset">Reset</button></div>
+  </div></article>
+  <article class="card s6"><h3>Timer settings</h3><p>Set your work, rest and number of rounds.</p><div class="fields"><div class="field"><label for="workSeconds">Work (seconds)</label><input id="workSeconds" type="number" min="5" max="600" value="45"></div><div class="field"><label for="restSeconds">Rest (seconds)</label><input id="restSeconds" type="number" min="0" max="600" value="60"></div><div class="field"><label for="rounds">Rounds</label><input id="rounds" type="number" min="1" max="20" value="3"></div><div class="field"><label for="timerExercise">Exercise</label><select id="timerExercise"><option>Band chest press</option><option>Band row</option><option>Band squat</option><option>Biceps curl</option><option>Plank</option><option>Push-up</option></select></div></div><div class="btnrow"><button class="btn secondary" id="applyTimer">Apply settings</button></div><p>Keep your phone screen awake if your device allows it. The timer runs while the page stays open.</p></article>
+ </div>
+</section>
 
-    <section class="card full">
-      <div class="row"><h2>12-week consistency tracker</h2><span class="pill" id="weekCount">0 / 12 weeks</span></div>
-      <p class="sub">Mark a week complete after reviewing your habits, training and recovery. This is about consistency, not perfection.</p>
-      <div class="days" id="weeks"></div>
-    </section>
+<section class="page" id="page-progress">
+ <div class="sectionhead"><div><h2>Your progress</h2><div class="muted">Record measurements weekly under similar conditions.</div></div></div>
+ <div class="grid">
+  <article class="card s6"><h3>Log body measurements</h3><p>Weight and waist at belly-button level.</p><div class="fields"><div class="field"><label for="weightInput">Weight (kg)</label><input id="weightInput" type="number" step=".1" min="20" max="300" placeholder="65"></div><div class="field"><label for="waistInput">Waist (inches)</label><input id="waistInput" type="number" step=".1" min="15" max="80" placeholder="32"></div></div><div class="btnrow"><button class="btn" id="saveMeasure">Save measurement</button></div></article>
+  <article class="card s6"><h3>12-week challenge</h3><p>Mark a week after reviewing training, nutrition and recovery.</p><div class="weekgrid" id="weeks"></div><div class="progress"><i id="weekProgress"></i></div><div class="muted" id="weekCount">0 of 12 weeks completed</div></article>
+  <article class="card full"><h3>Weight trend</h3><p>Simple visual of saved weigh-ins. A trend is more useful than daily fluctuations.</p><div class="bars" id="weightChart"></div><div id="measureHistory"></div></article>
+ </div>
+</section>
 
-    <section class="card full">
-      <h2>Weekly training map</h2><p class="sub">Adjust the plan to your recovery. You do not need six hard sessions.</p>
-      <div class="grid" style="margin-top:0">
-        <div class="card span4"><div class="exercise"><b>Monday · Push</b><span>Band chest press, push-ups, triceps extensions</span></div></div>
-        <div class="card span4"><div class="exercise"><b>Tuesday · Pull</b><span>Band rows, pulldowns, biceps curls</span></div></div>
-        <div class="card span4"><div class="exercise"><b>Wednesday · Legs + abs</b><span>Squats, lunges, band hinges, plank</span></div></div>
-        <div class="card span4"><div class="exercise"><b>Thursday · Recovery</b><span>Gentle mobility or easy walk</span></div></div>
-        <div class="card span4"><div class="exercise"><b>Friday · Upper body</b><span>Chest, back, shoulders and arms</span></div></div>
-        <div class="card span4"><div class="exercise"><b>Saturday · Lower + core</b><span>Legs, back accessory and abs</span></div></div>
-        <div class="card span4"><div class="exercise"><b>Sunday · Rest</b><span>Recover, eat well and prepare for the week</span></div></div>
-      </div>
-    </section>
-
-    <section class="card full">
-      <h2>Progress history</h2><p class="sub">Your saved body measurements on this device.</p>
-      <div id="history"><div class="empty">Your measurement history will appear here.</div></div>
-      <div class="btnrow">
-        <button class="btn secondary" id="exportBtn">Export my backup (JSON)</button>
-        <label class="btn secondary" for="importFile" style="display:inline-flex;align-items:center;cursor:pointer">Import backup</label>
-        <input id="importFile" type="file" accept="application/json" style="display:none">
-        <button class="btn danger" id="resetBtn">Clear all data</button>
-      </div>
-    </section>
-  </div>
-  <footer>Made for Lalu · Your data stays in this browser unless you export it.<br>This tracker is for general fitness organization, not medical advice. Train progressively and recover well.</footer>
+<section class="page" id="page-settings">
+ <div class="sectionhead"><div><h2>Settings & backup</h2><div class="muted">Install the app, protect your data and manage reminders.</div></div></div>
+ <div class="grid">
+  <article class="card s6"><h3>Install LALU FIT</h3><p>Add the app to your Android home screen. Offline support activates after the site has loaded once and the service worker has installed.</p><div class="btnrow"><button class="btn" id="installFromSettings">Install app</button></div><p id="offlineStatus" class="offline">Checking offline availability…</p></article>
+  <article class="card s6"><h3>Data backup</h3><p>Your entries are stored in this browser on this device. Export a backup regularly, especially before changing phones or browsers.</p><div class="btnrow"><button class="btn" id="exportBtn">Export backup</button><label class="btn secondary" for="importFile" style="display:inline-flex;align-items:center">Import backup</label><input id="importFile" type="file" accept="application/json" hidden></div></article>
+  <article class="card s6"><h3>Fitness targets</h3><div class="statrow"><div class="statbox"><small>Protein</small><b>105–120g</b></div><div class="statbox"><small>Sleep</small><b>8–9h</b></div><div class="statbox"><small>Training</small><b>4–5d</b></div></div><p>Targets are starting guides. Adjust based on energy, recovery and progress.</p></article>
+  <article class="card s6"><h3>Reset data</h3><p>This permanently clears locally stored habits, measurements and week completions on this browser. Export first if you want to keep a copy.</p><button class="btn danger" id="clearData">Clear all my data</button></article>
+ </div>
+</section>
+</main>
 </div>
+
+<nav class="nav" aria-label="Main navigation">
+ <button class="active" data-page="home"><span class="ni">⌂</span>Home</button>
+ <button data-page="workouts"><span class="ni">🏋</span>Exercises</button>
+ <button data-page="timer"><span class="ni">◷</span>Timer</button>
+ <button data-page="progress"><span class="ni">▥</span>Progress</button>
+ <button data-page="settings"><span class="ni">⚙</span>Settings</button>
+</nav>
 <div class="toast" id="toast">Saved ✓</div>
+
 <script>
-const KEY='laluFitTracker_v1';
+const STORE='laluFitUpgrade_v2';
 const $=id=>document.getElementById(id);
 const today=()=>new Date().toLocaleDateString('en-CA');
-const datePretty=d=>new Date(d+'T12:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
-let data=JSON.parse(localStorage.getItem(KEY)||'{"days":{},"measurements":[],"weeks":[]}');
-function save(){localStorage.setItem(KEY,JSON.stringify(data));}
+const dateLabel=d=>new Date(d+'T12:00:00').toLocaleDateString(undefined,{day:'numeric',month:'short',year:'numeric'});
+let data={days:{},measurements:[],weeks:[]};
+try{data={...data,...JSON.parse(localStorage.getItem(STORE)||'{}')};}catch(e){}
+// Preserve entries from the earlier LALU FIT tracker when upgrading.
+if(!localStorage.getItem(STORE)){try{const old=JSON.parse(localStorage.getItem('laluFitTracker_v1')||'null');if(old){data.measurements=old.measurements||[];data.weeks=old.weeks||[];data.days=old.days||{};for(const d of Object.values(data.days)){const h=d.habits||{};d.habits={morning:!!h.run,breakfast:!!h.breakfast,lunch:!!h.lunch,protein:!!h.protein,training:!!h.workout,water:!!h.water,sleep:!!h.sleep};d.nutrition=d.nutrition||{};}localStorage.setItem(STORE,JSON.stringify(data));}}catch(e){}}
+function save(){localStorage.setItem(STORE,JSON.stringify(data));}
 function toast(msg='Saved ✓'){$('toast').textContent=msg;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1400);}
-const day=today();$('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'short',year:'numeric'});
+const day=today();
 function dayData(){if(!data.days[day])data.days[day]={habits:{},nutrition:{}};return data.days[day];}
-function renderHabits(){
- const d=dayData();document.querySelectorAll('[data-habit]').forEach(el=>{el.checked=!!d.habits[el.dataset.habit];});
- const total=document.querySelectorAll('[data-habit]').length,done=Object.values(d.habits).filter(Boolean).length,pct=Math.round(done/total*100);
- $('dailyBar').style.width=pct+'%';$('completionLabel').textContent=pct+'% done';
-}
-document.querySelectorAll('[data-habit]').forEach(el=>el.addEventListener('change',()=>{dayData().habits[el.dataset.habit]=el.checked;save();renderHabits();}));
-function workout(){
- const names=['Push · Chest + triceps','Pull · Back + biceps','Legs + abs','Recovery · Mobility','Upper body','Lower body + core','Rest day'];
- const details=[
- 'Band chest press · push-ups · triceps extensions',
- 'Band rows · band pulldown · biceps curls',
- 'Band squats · reverse lunges · plank',
- 'Easy walk · gentle mobility · no hard training',
- 'Chest press · rows · shoulder press · arms',
- 'Squats · band hip hinge · back accessory · abs',
- 'Rest and recover'
- ];
- const idx=(new Date().getDay()+6)%7;
- $('workoutToday').innerHTML='<div class="exercise"><b>'+names[idx]+'</b><span>'+details[idx]+'</span></div>';
-}
-function loadNutrition(){const n=dayData().nutrition;$('proteinInput').value=n.protein??'';$('waterInput').value=n.water??'';$('sleepInput').value=n.sleep??'';}
-$('saveNutrition').onclick=()=>{dayData().nutrition={protein:Number($('proteinInput').value)||0,water:Number($('waterInput').value)||0,sleep:Number($('sleepInput').value)||0};save();toast('Nutrition saved ✓');};
-$('saveMeasure').onclick=()=>{
- const w=Number($('weightInput').value),wa=Number($('waistInput').value);
- if(!w&&!wa){toast('Enter a weight or waist');return;}
- data.measurements.push({date:day,weight:w||null,waist:wa||null});save();renderMeasures();$('weightInput').value='';$('waistInput').value='';toast('Measurement saved ✓');
-};
-function renderMeasures(){
- const arr=data.measurements||[];
- if(!arr.length){$('history').innerHTML='<div class="empty">Your measurement history will appear here.</div>';$('latestMeasure').textContent='No measurements saved yet.';return;}
- const last=arr[arr.length-1];$('latestMeasure').textContent='Latest: '+(last.weight?last.weight+' kg':'')+(last.weight&&last.waist?' · ':'')+(last.waist?last.waist+' in waist':'')+' ('+datePretty(last.date)+')';
- $('history').innerHTML='<table class="log"><thead><tr><th>Date</th><th>Weight</th><th>Waist</th></tr></thead><tbody>'+arr.slice().reverse().map(x=>'<tr><td>'+datePretty(x.date)+'</td><td>'+(x.weight?x.weight+' kg':'—')+'</td><td>'+(x.waist?x.waist+' in':'—')+'</td></tr>').join('')+'</tbody></table>';
-}
-function renderWeeks(){
- $('weeks').innerHTML=Array.from({length:12},(_,i)=>'<div class="day '+(data.weeks.includes(i)?'done':'')+'"><button data-week="'+i+'"><b>W'+(i+1)+'</b>'+(data.weeks.includes(i)?'✓':'Tap')+'</button></div>').join('');
- $('weekCount').textContent=data.weeks.length+' / 12 weeks';
- document.querySelectorAll('[data-week]').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.week);data.weeks=data.weeks.includes(i)?data.weeks.filter(x=>x!==i):[...data.weeks,i];save();renderWeeks();});
-}
-$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lalu-fit-backup-'+day+'.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported ✓');};
-$('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const obj=JSON.parse(r.result);if(!obj.days||!obj.measurements)throw Error();data=obj;save();init();toast('Backup imported ✓');}catch{alert('That backup file could not be read.');}};r.readAsText(f);};
-$('resetBtn').onclick=()=>{if(confirm('Clear all saved fitness data on this device? Export a backup first if you want to keep it.')){data={days:{},measurements:[],weeks:[]};save();init();toast('Data cleared');}};
-function init(){renderHabits();loadNutrition();renderMeasures();renderWeeks();workout();}
-init();
+$('today').textContent=new Date().toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short'});
+$('fullDate').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+
+const split=[
+ ['Monday','Push · Chest + triceps','Band chest press, push-ups, triceps extensions'],
+ ['Tuesday','Pull · Back + biceps','Band rows, pulldowns, biceps curls'],
+ ['Wednesday','Legs + abs','Band squats, reverse lunges, plank'],
+ ['Thursday','Recovery','Easy walk and gentle mobility'],
+ ['Friday','Upper body','Chest press, rows, shoulder press, arms'],
+ ['Saturday','Lower body + core','Squats, band hip hinge, back accessory, abs'],
+ ['Sunday','Rest','Recover, eat well and prepare for the week']
+];
+function todayIndex(){return (new Date().getDay()+6)%7;}
+function renderPlan(){const s=split[todayIndex()];$('todayPlan').innerHTML='<div class="exercise"><span class="emoji">💪</span><b>'+s[1]+'</b><small>'+s[2]+'</small></div>';$('todayPlanSub').textContent=s[0]+' · Suggested session';$('todayPlan').innerHTML+='<p class="muted">Start easy. Rest if you feel unusually tired or sore.</p>';}
+function renderHabits(){const h=dayData().habits;document.querySelectorAll('[data-h]').forEach(c=>c.checked=!!h[c.dataset.h]);const total=document.querySelectorAll('[data-h]').length,done=Object.values(h).filter(Boolean).length,p=Math.round(done/total*100);$('dailyProgress').style.width=p+'%';$('dayPercent').textContent=p+'% complete';}
+document.querySelectorAll('[data-h]').forEach(c=>c.addEventListener('change',()=>{dayData().habits[c.dataset.h]=c.checked;save();renderHabits();}));
+function renderNutrition(){const n=dayData().nutrition;$('proteinQuick').value=n.protein??'';$('sleepQuick').value=n.sleep??'';$('waterQuick').value=n.water??'';const p=Number(n.protein)||0;$('homeProtein').textContent=p+' g';$('proteinLeft').textContent=Math.max(0,120-p)+' g';$('proteinProgress').style.width=Math.min(100,p/120*100)+'%';}
+$('saveProtein').onclick=()=>{dayData().nutrition.protein=Number($('proteinQuick').value)||0;save();renderNutrition();toast('Protein saved ✓');};
+$('saveRecovery').onclick=()=>{dayData().nutrition.sleep=Number($('sleepQuick').value)||0;dayData().nutrition.water=Number($('waterQuick').value)||0;save();toast('Recovery saved ✓');};
+function renderWeeks(){$('weeks').innerHTML=Array.from({length:12},(_,i)=>'<button class="week '+(data.weeks.includes(i)?'done':'')+'" data-week="'+i+'"><b>W'+(i+1)+'</b>'+(data.weeks.includes(i)?'✓':'Tap')+'</button>').join('');$('weekCount').textContent=data.weeks.length+' of 12 weeks completed';$('weekProgress').style.width=(data.weeks.length/12*100)+'%';document.querySelectorAll('[data-week]').forEach(b=>b.onclick=()=>{const i=Number(b.dataset.week);data.weeks=data.weeks.includes(i)?data.weeks.filter(x=>x!==i):[...data.weeks,i];save();renderWeeks();});}
+function renderMeasures(){const arr=data.measurements||[];if(!arr.length){$('measureHistory').innerHTML='<div class="empty">No measurements yet. Add your first entry above.</div>';$('weightChart').innerHTML='';return;}$('measureHistory').innerHTML='<table class="history"><thead><tr><th>Date</th><th>Weight</th><th>Waist</th></tr></thead><tbody>'+arr.slice().reverse().map(x=>'<tr><td>'+dateLabel(x.date)+'</td><td>'+(x.weight?x.weight+' kg':'—')+'</td><td>'+(x.waist?x.waist+' in':'—')+'</td></tr>').join('')+'</tbody></table>';const vals=arr.slice(-8),weights=vals.map(x=>x.weight).filter(Boolean),min=weights.length?Math.min(...weights)-1:0,max=weights.length?Math.max(...weights)+1:1;$('weightChart').innerHTML=vals.map(x=>{const h=x.weight?Math.max(8,((x.weight-min)/(max-min))*100):5;return '<div class="barcol"><div class="bar" style="height:'+h+'%"></div><small>'+dateLabel(x.date).split(' ')[0]+'</small></div>';}).join('');}
+$('saveMeasure').onclick=()=>{const w=Number($('weightInput').value),wa=Number($('waistInput').value);if(!w&&!wa){toast('Enter weight or waist');return;}data.measurements.push({date:day,weight:w||null,waist:wa||null});save();renderMeasures();$('weightInput').value='';$('waistInput').value='';toast('Measurement saved ✓');};
+
+const exercises=[
+ {name:'Band chest press',muscle:'Chest · Triceps',level:'Beginner',how:'Anchor the band behind your upper back or to a secure point behind you. Press hands forward without locking elbows, then return slowly.',sets:'2–3',reps:'10–15',rest:'60–90s',anim:'press',emoji:'🏋️'},
+ {name:'Band row',muscle:'Back · Biceps',level:'Beginner',how:'Anchor the band securely in front of you. Pull elbows back close to your body, squeeze shoulder blades gently, then return slowly.',sets:'2–3',reps:'10–15',rest:'60–90s',anim:'row',emoji:'🚣'},
+ {name:'Band squat',muscle:'Quadriceps · Glutes',level:'Beginner',how:'Stand on the band with feet about shoulder-width apart. Keep chest lifted, sit hips back, then stand by pressing through your feet.',sets:'2–3',reps:'10–15',rest:'60–90s',anim:'squat',emoji:'🦵'},
+ {name:'Biceps curl',muscle:'Biceps',level:'Beginner',how:'Stand on the band, elbows close to your sides. Curl hands toward shoulders without swinging, then lower under control.',sets:'2–3',reps:'10–15',rest:'60s',anim:'curl',emoji:'💪'},
+ {name:'Shoulder press',muscle:'Shoulders · Triceps',level:'Beginner',how:'Stand on the band and bring hands to shoulder height. Press overhead smoothly, keeping ribs down, then lower with control.',sets:'2–3',reps:'8–12',rest:'60–90s',anim:'press',emoji:'🙌'},
+ {name:'Plank',muscle:'Core',level:'Beginner',how:'Place forearms on the floor, elbows under shoulders. Keep your body in a straight line and breathe normally. Stop before your hips sag.',sets:'2–3',reps:'20–40 sec',rest:'45–60s',anim:'plank',emoji:'🧱'},
+ {name:'Push-up',muscle:'Chest · Triceps · Core',level:'Beginner',how:'Hands slightly wider than shoulders. Keep body straight, lower chest toward floor and push away. Use knees or an elevated surface if needed.',sets:'2–3',reps:'6–12',rest:'60–90s',anim:'press',emoji:'🔻'},
+ {name:'Reverse lunge',muscle:'Legs · Glutes',level:'Beginner',how:'Step one foot backward, lower both knees comfortably, keep front knee aligned with toes, then push through the front foot to return.',sets:'2',reps:'8–10 each',rest:'60–90s',anim:'squat',emoji:'🚶'},
+ {name:'Band triceps extension',muscle:'Triceps',level:'Beginner',how:'Secure the band overhead or hold it behind your head. Extend elbows without flaring them, then bend slowly.',sets:'2–3',reps:'10–15',rest:'60s',anim:'press',emoji:'💪'}
+];
+let selected=0;
+function selectExercise(i){selected=i;const e=exercises[i];$('exerciseName').textContent=e.name;$('exerciseMeta').textContent=e.muscle;$('exerciseLevel').textContent=e.level;$('exerciseHow').textContent=e.how;$('exerciseSets').textContent=e.sets;$('exerciseReps').textContent=e.reps;$('exerciseRest').textContent=e.rest;$('demo').className='demo '+e.anim;document.querySelectorAll('.exercise[data-ex]').forEach((el,j)=>el.classList.toggle('selected',j===i));$('timerExercise').value=e.name;}
+function renderExercises(){$('exerciseList').innerHTML=exercises.map((e,i)=>'<button class="exercise '+(i===selected?'selected':'')+'" data-ex="'+i+'"><span class="emoji">'+e.emoji+'</span><b>'+e.name+'</b><small>'+e.muscle+'</small></button>').join('');document.querySelectorAll('[data-ex]').forEach(b=>b.onclick=()=>selectExercise(Number(b.dataset.ex)));selectExercise(selected);$('splitCards').innerHTML=split.map(s=>'<article class="card s4"><h3>'+s[0]+' · '+s[1]+'</h3><p>'+s[2]+'</p></article>').join('');}
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.go)));
+document.querySelectorAll('[data-page]').forEach(b=>b.addEventListener('click',()=>showPage(b.dataset.page)));
+function showPage(name){document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+name));document.querySelectorAll('[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===name));window.scrollTo({top:0,behavior:'smooth'});}
+
+let work=45,rest=60,rounds=3,currentRound=1,remaining=45,mode='work',timerId=null,quickRemaining=45,quickId=null;
+function fmt(s){return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');}
+function drawTimer(){$('timerDisplay').textContent=fmt(remaining);$('timerMode').textContent=mode.toUpperCase();$('timerRing').className='ring '+mode;$('roundLabel').textContent='Round '+currentRound+' of '+rounds;$('timerStatus').textContent=timerId?'RUNNING':'READY';}
+function stopTimer(){if(timerId){clearInterval(timerId);timerId=null;}}
+function tickTimer(){remaining--;if(remaining<=0){if(mode==='work'&&rest>0){mode='rest';remaining=rest;}else if(currentRound<rounds){currentRound++;mode='work';remaining=work;}else{stopTimer();remaining=0;$('timerStatus').textContent='DONE';beep();drawTimer();toast('Workout intervals complete!');return;}beep();}drawTimer();}
+function beep(){try{const c=new (window.AudioContext||window.webkitAudioContext)();const o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=660;g.gain.value=.06;o.start();o.stop(c.currentTime+.12);}catch(e){}}
+function startTimer(){if(timerId)return;timerId=setInterval(tickTimer,1000);drawTimer();}
+function resetTimer(){stopTimer();currentRound=1;mode='work';remaining=work;drawTimer();}
+$('timerStart').onclick=startTimer;$('timerPause').onclick=()=>{stopTimer();drawTimer();};$('timerReset').onclick=resetTimer;
+$('applyTimer').onclick=()=>{stopTimer();work=Math.max(5,Math.min(600,Number($('workSeconds').value)||45));rest=Math.max(0,Math.min(600,Number($('restSeconds').value)||0));rounds=Math.max(1,Math.min(20,Number($('rounds').value)||1));resetTimer();toast('Timer settings applied');};
+document.querySelectorAll('[data-work]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-work]').forEach(x=>x.classList.remove('active'));b.classList.add('active');$('workSeconds').value=b.dataset.work;$('restSeconds').value=b.dataset.rest;$('applyTimer').click();});
+$('startExerciseTimer').onclick=()=>{showPage('timer');$('timerExercise').value=exercises[selected].name;startTimer();};
+function quickDraw(){$('quickTime').textContent=fmt(quickRemaining);$('quickMode').textContent=quickId?'Running':'Ready';}
+$('quickStart').onclick=()=>{if(quickId){clearInterval(quickId);quickId=null;$('quickStart').textContent='Start';quickDraw();return;} $('quickStart').textContent='Pause';quickId=setInterval(()=>{quickRemaining--;if(quickRemaining<=0){clearInterval(quickId);quickId=null;quickRemaining=0;$('quickStart').textContent='Start';beep();toast('Interval complete');}quickDraw();},1000);quickDraw();};
+$('quickReset').onclick=()=>{clearInterval(quickId);quickId=null;quickRemaining=45;$('quickStart').textContent='Start';quickDraw();};
+
+$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lalu-fit-backup-'+day+'.json';a.click();URL.revokeObjectURL(a.href);toast('Backup exported');};
+$('importFile').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const x=JSON.parse(r.result);if(!x.days||!x.measurements)throw Error();data={...data,...x};save();initRender();toast('Backup imported');}catch(err){alert('Could not read that backup file.');}};r.readAsText(f);};
+$('clearData').onclick=()=>{if(confirm('Clear all LALU FIT data saved in this browser? Export a backup first if needed.')){data={days:{},measurements:[],weeks:[]};save();initRender();toast('Local data cleared');}};
+function initRender(){renderHabits();renderNutrition();renderWeeks();renderMeasures();renderPlan();renderExercises();drawTimer();quickDraw();}
+initRender();
+
+let installPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;$('installBtn').hidden=false;});
+async function installApp(){if(installPrompt){installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('installBtn').hidden=true;}else{toast('Use browser menu → Add to Home screen');}}
+$('installBtn').onclick=installApp;$('installFromSettings').onclick=installApp;
+if('serviceWorker' in navigator){window.addEventListener('load',async()=>{try{await navigator.serviceWorker.register('./sw.js');$('offlineStatus').textContent='Offline support is ready after this page is cached.';}catch(e){$('offlineStatus').textContent='Offline setup needs the sw.js file in the same folder.';}});}else{$('offlineStatus').textContent='This browser does not support offline app caching.';}
+window.addEventListener('online',()=>toast('Back online'));window.addEventListener('offline',()=>toast('Offline mode'));
 </script>
 </body>
 </html>
